@@ -1,0 +1,14 @@
+<h1>Product info</h1>
+
+<p>Name: <%= @product.title %></p>
+<p>Price: <%= @product.price %>$</p>
+<p>Views: <%= @product.views %></p>
+<br>
+
+<% if @remove %>
+    <p><%= link_to 'Remove', clear_path %></p>
+<% else %>
+    <p><%= link_to 'Add to cart', edit_product_path %></p>
+<% end %>
+
+<p><%= link_to 'Back', products_path %></p>

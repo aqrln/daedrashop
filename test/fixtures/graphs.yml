@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  buy_with: 1
+  view_with: 1
+  add_with: 1
+
+two:
+  buy_with: 1
+  view_with: 1
+  add_with: 1

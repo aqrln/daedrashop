@@ -1,0 +1,13 @@
+<h1>Dev only</h1>
+<h3>Product setup</h3>
+<%= form_for @product do |form| %>
+    <p><%= form.label :title %></p>
+    <%= form.text_field :title %>
+    <p><%= form.label :views %></p>
+    <%= form.text_field :views %>
+    <p><%= form.label :price %></p>
+    <%= form.text_field :price %>
+    <br>
+    <p><%= form.submit %></p>
+<% end %>
+<p><%= link_to 'Back', products_path %></p>

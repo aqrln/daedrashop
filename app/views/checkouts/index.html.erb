@@ -1,0 +1,10 @@
+<h1>Checkout</h1>
+
+<p>Total: <%= session[:total] %>$</p>
+
+<%= form_for @username do |form| %>
+    <p><%= form.label @username %></p>
+    <%= form.text_field @username %>
+    <br>
+    <p><%= form.submit 'Buy'%></p>
+<% end %>

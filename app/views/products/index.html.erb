@@ -1,0 +1,40 @@
+<h1>List of products</h1>
+<br>
+
+<h4>Bought</h4>
+<% if @bought != nil %>
+    <% @bought.each do |element| %>
+        <% if element.to_i > 0 %>
+            <p><%= link_to @products[element - 1].title, @products[element - 1] %></p>
+        <% end %>
+    <% end %>
+<% end %>
+
+<h4>View</h4>
+<% if @view != nil %>
+    <% @view_list = @products.sort_by do |element| %>
+        <% element[:views] %>
+    <% end %>
+    <% @view_list.reverse! %>
+
+    <% @view_list.each do |product| %>
+        <% if product.id == @view[product.id - 1] %>
+            <p><%= link_to product.title, product %></p>
+        <% end %>
+    <% end %>
+<% end %>
+
+<h4>Cart</h4>
+<% if @cart != nil %>
+    <% @cart.each do |element| %>
+        <% if element.to_i > 0 %>
+            <p><%= link_to @products[element - 1].title, @products[element - 1] %></p>
+        <% end %>
+    <% end %>
+<% end %>
+
+<br>
+<p><%= link_to 'Cart', carts_path %></p>
+
+<!--DEV ONLY-->
+<p><%= link_to 'Add new product', new_product_path %></p>

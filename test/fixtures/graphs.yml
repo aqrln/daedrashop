@@ -1,11 +1,15 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
 one:
+  first_product: 1
+  second_product: 1
   buy_with: 1
   view_with: 1
-  add_with: 1
+  cart_with: 1
 
 two:
+  first_product: 1
+  second_product: 1
   buy_with: 1
   view_with: 1
-  add_with: 1
+  cart_with: 1

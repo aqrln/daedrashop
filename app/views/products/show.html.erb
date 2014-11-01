@@ -5,6 +5,31 @@
 <p>Views: <%= @product.views %></p>
 <br>
 
+<h4>Buy with</h4>
+    <% if session[:buy_prev] != nil %>
+        <% session[:buy_prev].each do |element| %>
+            <p><%= element %></p>
+        <% end %>
+    <% end %>
+<br>
+
+
+<h4>View with</h4>
+
+<br>
+
+<h4>Add to cart with</h4>
+
+<br>
+
+<h4>Graph structure</h4>
+<% @graph = Graph.all %>
+<p><%= @graph.length %></p>
+<% @graph.each do |element| %>
+    <p><%= element.first_product %> <%= element.second_product %> <%= element.buy_with %> <%= element.view_with %> <%= element.cart_with %>  </p>
+<% end %>
+<br>
+
 <% if @bought == false %>
     <% if @remove %>
         <p><%= link_to 'Remove', clear_path %></p>

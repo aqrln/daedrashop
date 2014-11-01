@@ -3,6 +3,8 @@ class ProductsController < ApplicationController
   def index
     @products = Product.all
 
+    #session.clear
+
     @buy_list = SetupArray(:bought, @products)
     @cart = SetupArray(:in_cart, @products)
 
@@ -56,20 +58,95 @@ class ProductsController < ApplicationController
     @product = Product.new(params[:product])
 
     if @product.save
+      GraphCreate()
       redirect_to @product
     else
       render new_product_path
     end
   end
 
+  def GraphCreate
+    Product.all.each do |product_first|
+      Product.all.each do |product_second|
+        if product_first.id != product_second.id
+          if not Graph.where(:first_product => product_first.id, :second_product => product_second.id).exists?
+            @graph = Graph.create(:first_product => product_first.id, :second_product => product_second.id,
+                                  :buy_with => 0, :view_with => 0, :cart_with => 0)
+          end
+        end
+      end
+    end
+  end
+
+  def UpdateCartGraph(first, second)
+    graph = Graph.where(:first_product => first, :second_product => second)
+    if not graph.exists?
+      GraphCreate()
+      CartWithUpdate(Product.find(first))
+    else
+      myGraph = Graph.find(graph)
+      myGraph.update_attribute(:cart_with, myGraph.cart_with + 1)
+    end
+  end
+
+  def UpdateViewGraph(first, second)
+    graph = Graph.where(:first_product => first, :second_product => second)
+    if not graph.exists?
+      GraphCreate()
+      ViewWithUpdate(Product.find(first))
+    else
+      myGraph = Graph.find(graph)
+      myGraph.update_attribute(:view_with, myGraph.view_with + 1)
+    end
+  end
+
   def show
     @product = Product.find(params[:id])
+
+    ViewWithUpdate(@product)
+    CartWithUpdate(@product)
 
     @bought = CheckListType(:bought, @product)
     @remove = CheckListType(:in_cart, @product)
 
     @product.views += 1
     @product.update_attribute(:views, @product.views)
+  end
+
+  def ViewSession(product)
+    update_view = true
+    if not session[:view_session].nil?
+      session[:view_session].each do |element|
+        if element == product.id
+          update_view = false
+          break
+        end
+      end
+    end
+    (session[:view_session] ||= []) << product.id if update_view
+  end
+
+  def ViewWithUpdate(product)
+    ViewSession(product)
+    if session[:view_session] != nil and session[:view_session].length > 1
+      session[:view_session].each do |element|
+        if element != product.id
+          UpdateViewGraph(product.id, element)
+          UpdateViewGraph(element, product.id)
+        end
+      end
+    end
+  end
+
+  def CartWithUpdate(product)
+    if session[:in_cart] != nil and session[:in_cart].length > 1
+      session[:in_cart].each do |element|
+        if element != product.id
+          UpdateCartGraph(product.id, element)
+          UpdateCartGraph(element, product.id)
+        end
+      end
+    end
   end
 
   def CheckListType(params, product)

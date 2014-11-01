@@ -2,8 +2,8 @@
 <br>
 
 <h4>Bought</h4>
-<% if @bought != nil %>
-    <% @bought.each do |element| %>
+<% if @buy_list != nil %>
+    <% @buy_list.each do |element| %>
         <% if element.to_i > 0 %>
             <p><%= link_to @products[element - 1].title, @products[element - 1] %></p>
         <% end %>

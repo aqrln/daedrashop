@@ -6,7 +6,13 @@ class CheckoutsController < ApplicationController
 
   def create
     render 'checkouts/show'
-    session[:bought] = session[:in_cart]
+    if session[:bought] == nil
+      session[:bought] = session[:in_cart]
+    else
+      session[:in_cart].each  do |element|
+        session[:bought].push(element)
+      end
+    end
     session[:in_cart] = nil
   end
 

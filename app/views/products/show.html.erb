@@ -5,10 +5,12 @@
 <p>Views: <%= @product.views %></p>
 <br>
 
-<% if @remove %>
-    <p><%= link_to 'Remove', clear_path %></p>
-<% else %>
-    <p><%= link_to 'Add to cart', edit_product_path %></p>
+<% if @bought == false %>
+    <% if @remove %>
+        <p><%= link_to 'Remove', clear_path %></p>
+    <% else %>
+        <p><%= link_to 'Add to cart', edit_product_path %></p>
+    <% end %>
 <% end %>
 
 <p><%= link_to 'Back', products_path %></p>

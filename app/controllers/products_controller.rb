@@ -1,38 +1,22 @@
 class ProductsController < ApplicationController
 
-  #TODO: Rewrite index(find better way)
   def index
     @products = Product.all
 
-    if session[:bought] != nil
-      @bought = Array.new(session[:bought].length) { 0 }
-      session[:bought].each do |element|
-        if element == @products[element - 1].id
-          @bought[element - 1] = element
-        end
-      end
-    end
-
-    if session[:in_cart] != nil
-      @cart = Array.new(session[:in_cart].length) { 0 }
-      session[:in_cart].each do |element|
-        if element == @products[element - 1].id
-          @cart[element - 1] = element
-        end
-      end
-    end
+    @buy_list = SetupArray(:bought, @products)
+    @cart = SetupArray(:in_cart, @products)
 
     if session[:bought] != nil and session[:in_cart] != nil
-      @view = Array.new(@products.length - @bought.length - @cart.length) { 0 }
+      @view = Array.new(@products.length - @cart.length) { 0 }
       @products.each do |product|
-        if @bought[product.id - 1] != product.id and product.id != @cart[product.id - 1]
+        if @buy_list[product.id - 1] != product.id and product.id != @cart[product.id - 1]
           @view[product.id - 1] = product.id
         end
       end
     elsif session[:bought] != nil and session[:in_cart] == nil
-      @view = Array.new(@products.length - @bought.length) { 0 }
+      @view = Array.new(@products.length - @buy_list.length) { 0 }
       @products.each do |product|
-        if @bought[product.id - 1] != product.id
+        if @buy_list[product.id - 1] != product.id
           @view[product.id - 1] = product.id
         end
       end
@@ -52,6 +36,18 @@ class ProductsController < ApplicationController
 
   end
 
+  def SetupArray(params, products)
+    if session[params] != nil
+      array = Array.new(session[params].length) { 0 }
+      session[params].each do |element|
+        if element == products[element - 1].id
+          array[element - 1] = element
+        end
+      end
+    end
+    return array
+  end
+
   def new
     @product = Product.new
   end
@@ -69,19 +65,24 @@ class ProductsController < ApplicationController
   def show
     @product = Product.find(params[:id])
 
-    if session[:in_cart] != nil
-      session[:in_cart].each do |element|
-        if element == @product.id
-          @remove = true
-          break
-        else
-          @remove = false
-        end
-      end
-    end
+    @bought = CheckListType(:bought, @product)
+    @remove = CheckListType(:in_cart, @product)
 
     @product.views += 1
     @product.update_attribute(:views, @product.views)
+  end
+
+  def CheckListType(params, product)
+    my_bool = false
+    if session[params] != nil
+      session[params].each do |element|
+        if element == product.id
+          my_bool = true
+          break
+        end
+      end
+    end
+    return my_bool
   end
 
   def clear

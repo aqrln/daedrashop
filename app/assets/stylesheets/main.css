@@ -1,0 +1,12 @@
+@font-face {
+  font-family: "Ruritania";
+  src: url("/fonts/Ruritania.ttf");
+}
+
+h1 {
+  font-family: "Ruritania";
+  font-size: 10em;
+  text-align: center;
+  margin-top: 10%;
+  margin-bottom: 5%;
+}

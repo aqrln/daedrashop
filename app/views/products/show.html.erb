@@ -1,11 +1,11 @@
-<h2>Product info</h2>
+<h2>Информация о продукте</h2>
 
-<p>Name: <%= @product.title %></p>
-<p>Price: <%= @product.price %>$</p>
-<p>Views: <%= @product.views %></p>
+<p>Название: <%= @product.title %></p>
+<p>Цена: <%= @product.price %>$</p>
+<p>Просмотры: <%= @product.views %></p>
 <br>
 
-<h4>Buy with</h4>
+<h4>Также покупают:</h4>
     <% if session[:buy_prev] != nil %>
         <% session[:buy_prev].each do |element| %>
             <p><%= element %></p>
@@ -13,20 +13,20 @@
     <% end %>
 <br>
 
-<h4>View with</h4>
+<h4>Также просматривают:</h4>
 
 <br>
 
-<h4>Add to cart with</h4>
+<h4>Также добавляют в корзину:</h4>
 
 <br>
 
 <% if @bought == false %>
     <% if @remove %>
-        <p><%= link_to 'Remove', clear_path %></p>
+        <p><%= link_to 'Убрать из корзины', clear_path %></p>
     <% else %>
-        <p><%= link_to 'Add to cart', edit_product_path %></p>
+        <p><%= link_to 'Добавить в корзину', edit_product_path %></p>
     <% end %>
 <% end %>
 
-<p><%= link_to 'Back', products_path %></p>
+<p><%= link_to 'Назад', products_path %></p>

@@ -103,3 +103,60 @@ nav a, nav a:hover {
   font-style: italic;
   color: #541;
 }
+
+input[type=text] {
+  border: none;
+  border-radius: 5px;
+  background-color: #dc9; 
+  height: 2em;
+  font-size: 1.2em;
+  width: 100%;
+}
+
+*:focus {
+  outline: 0;
+}
+
+::-webkit-input-placeholder {
+  color: #555;
+  opacity: 1;
+}
+:-moz-placeholder {
+  color: #555;
+  opacity: 1;
+}
+::-moz-placeholder {
+  color: #555;
+  opacity: 1;
+}
+:-ms-input-placeholder {
+  color: #555;
+  opacity: 1;
+}
+
+button {
+  border: none;
+  border-radius: 5px;
+}
+
+.submit-button {
+  background-color: #cb8;
+  height: 2em;
+  font-size: 1.2em;
+  width: 100%;
+  margin-top: 1%;
+  transition: 0.5s linear;
+}
+
+.submit-button:hover {
+  background-color: #feb;
+  transition: 0.5s ease;
+}
+
+form {
+  text-align: center;
+}
+
+h3 {
+  text-align: center;
+}

@@ -72,26 +72,11 @@ class ProductsController < ApplicationController
     @product = Product.find(params[:id])
     session[:current_id] = @product.id
 
-    #view_session(@product)
-    #graph_update(:view_session, @product)
+    view_session(@product)
+    graph_update(:view_session, @product)
     graph_update(:in_cart, @product)
 
-    cart_graph = Graph.find_all_by_first_product(@product.id)
-    cart_graph.sort_by! { |element| element.cart_with }
-    cart_graph.reverse!
-
-    in_cart_ten = Array.new(10)
-    (0..9).each do |i|
-      in_cart_ten[i] = (cart_graph[i])
-    end
-
-    @in_cart = Array.new(4)
-    @newR = 0
-    @prevR = Random.rand(9)
-    4.times do |i|
-      random_stuff()
-      @in_cart[i] = in_cart_ten[@newR]
-    end
+    get_all_elements(@product)
 
     @bought = check_list_type(:bought, @product)
     @remove = check_list_type(:in_cart, @product)
@@ -100,10 +85,64 @@ class ProductsController < ApplicationController
     @product.update_attribute(:views, @product.views)
   end
 
-  def random_stuff
+  def get_all_elements(product)
+    graph = Graph.find_all_by_first_product(product.id)
+    graph.sort_by! { |element| element.cart_with }
+    graph.reverse!
+
+    four_ids = get_four_elements(graph)
+
+    @in_cart = Array.new
+    four_ids.each do |element|
+      @in_cart.push(Product.find(element.second_product))
+    end
+
+    graph.clear
+    graph = Graph.find_all_by_first_product(product.id)
+    graph.sort_by! { |element| element.view_with }
+    graph.reverse!
+
+    four_ids = get_four_elements(graph)
+
+    @view_with = Array.new
+    four_ids.each do |element|
+      @view_with.push(Product.find(element.second_product))
+    end
+
+    graph.clear
+    graph = Graph.find_all_by_first_product(product.id)
+    graph.sort_by! { |element| element.buy_with }
+    graph.reverse!
+
+    four_ids = get_four_elements(graph)
+
+    @buy_with = Array.new
+    four_ids.each do |element|
+      @buy_with.push(Product.find(element.second_product))
+    end
+  end
+
+  def get_four_elements(graph)
+    ten_ids = Array.new(10)
+    (0..9).each do |i|
+      ten_ids[i] = (graph[i])
+    end
+
+    four_ids = Array.new(4)
+    @newR = 0
+    @prevR = Random.rand(9)
+    4.times do |i|
+      random_num()
+      four_ids[i] = ten_ids[@newR]
+    end
+
+    return four_ids
+  end
+
+  def random_num
     @newR = Random.rand(9)
     if @newR == @prevR
-      random_stuff()
+      random_num()
     else
       @prevR = @newR
     end

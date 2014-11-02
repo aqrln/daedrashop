@@ -26,7 +26,7 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
         <li><a href="/products"><i class="glyphicon glyphicon-th"></i> Каталог продукции</a></li>
-        <li><a href="/carts"><i class="glyphicon glyphicon-shopping-cart"></i> Корзина</a></li>
+        <li><a href="/carts"><i class="glyphicon glyphicon-shopping-cart"></i> Корзина <span class="badge"><%= session[:in_cart].length if session[:in_cart] %></span></a></li>
         <li><a href="/checkouts"><i class="glyphicon glyphicon-credit-card"></i> Совершить покупку</a></li>
       </ul>
       </ul>

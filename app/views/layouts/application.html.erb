@@ -8,22 +8,44 @@
 </head>
 <body>
 
-<div class="container">
+<nav class="navbar navbar-inverse navbar-fixed-top navbar-custom" role="navigation">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <span class="navbar-brand">DaedraShop</span>
+    </div>
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li><a href="/products">Каталог продукции</a></li>
+        <li><a href="/carts">Корзина</a></li>
+        <li><a href="/checkouts">Совершить покупку</a></li>
+      </ul>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="container container-fluid">
   <h1>DaedraShop</h1>
   <div class="row">
     <div class="col-sm-9">
       <%= yield %>
     </div>
     <div class="col-sm-3">
-      <div>
+      <div id="cart-float">
         <h4>Корзина</h4>
         <% if session[:in_cart] %>
           <p>Количество товаров: 0</p>
           <p>Сумма: 0 грн.</p>
-          <p><a href="/carts/">Перейти к корзине</a></p>
+          <p><a href="/carts">Перейти к корзине</a></p>
         <% else %>
           <p>Ваша корзина пуста!</p>
-          <p><a href="/products/">Перейти к каталогу продукции</a></p>
+          <p><a href="/products">Перейти к каталогу продукции</a></p>
         <% end %>
       </div>
     </div>

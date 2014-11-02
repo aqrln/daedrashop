@@ -3,10 +3,33 @@
   src: url("/fonts/Ruritania.ttf");
 }
 
+body {
+  background-color: #eda;
+  border-top: 10px solid #333;
+}
+
 h1 {
   font-family: "Ruritania";
   font-size: 10em;
   text-align: center;
   margin-top: 10%;
   margin-bottom: 5%;
+}
+
+#cart-float {
+  margin-top: 20%;
+  border-radius: 5px;
+  border: 1px solid;
+  border-color: #dc9 #feb #feb #dc9;
+  padding: 5px;
+}
+
+.navbar-custom {
+  border-radius: 0;
+  border: none;
+  background-color: #333;
+}
+
+.navbar-custom .navbar-brand {
+  font-family: "Ruritania";
 }

@@ -12,7 +12,7 @@
             <% end %>
             <div class="col-sm-2 product">
                 <a href="<%= url_for @products[element - 1] %>">
-                    <img src="/products/1.png">
+                    <img src="/products/<%= @products[element - 1].id %>.png">
                     <p class="catalog-product-name"><%= @products[element - 1].title %><br>
                     <span class="catalog-price">(<%= number_to_currency @products[element - 1].price, unit: "грн.", format: "%n %u", delimeter: " " %>)</span></p>
                 </a>
@@ -41,7 +41,7 @@
         <% end %>
         <div class="col-sm-2 product">
             <a href="<%= url_for product %>">
-                <img src="/products/1.png">
+                <img src="/products/<%= product.id %>.png">
                 <p class="catalog-product-name"><%= product.title %><br>
                     <span class="catalog-price">(<%= number_to_currency product.price, unit: "грн.", format: "%n %u", delimeter: " " %>)</span></p>
             </a>
@@ -66,7 +66,7 @@
             <% end %>
             <div class="col-sm-2 product">
                 <a href="<%= url_for @products[element - 1] %>">
-                    <img src="/products/1.png">
+                    <img src="/products/<%= @products[element - 1].id %>.png">
                     <p class="catalog-product-name"><%= @products[element - 1].title %><br>
                     <span class="catalog-price">(<%= number_to_currency @products[element - 1].price, unit: "грн.", format: "%n %u", delimeter: " " %>)</span></p>
                 </a>

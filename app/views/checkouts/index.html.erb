@@ -3,7 +3,7 @@
 <% if session[:in_cart] %>
 
 <%= form_for @username do |form| %>
-  <h3>Сумма: <%= number_to_currency session[:total], unit: "грн.", format: "%n %u", delimeter: " " %></h3>
+  <h3>Сумма: <%= number_to_currency session[:total], unit: "грн.", format: "%n %u", delimiter: " " %></h3>
   <div class="row">
     <div class="col-sm-3"></div>
     <div class="col-sm-6">

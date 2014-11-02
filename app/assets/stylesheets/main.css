@@ -3,9 +3,15 @@
   src: url("/fonts/Ruritania.ttf");
 }
 
+@font-face {
+  font-family: "PT Sans";
+  src: url("/fonts/PT_Sans-Web-Regular.ttf");
+}
+
 body {
   background-color: #eda;
   border-top: 10px solid #333;
+  font-family: "PT Sans";
 }
 
 h1 {
@@ -46,4 +52,9 @@ footer {
   color: #a96;
   padding: 3% 0;
   margin-top: 3%;
+}
+
+h2 {
+  text-align: center;
+  font-size: 3em;
 }

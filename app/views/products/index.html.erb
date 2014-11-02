@@ -1,5 +1,4 @@
-<h2>List of products</h2>
-<br>
+<h2>Каталог продукции</h2>
 
 <h4>Bought</h4>
 <% if @buy_list != nil %>
@@ -32,9 +31,3 @@
         <% end %>
     <% end %>
 <% end %>
-
-<br>
-<p><%= link_to 'Cart', carts_path %></p>
-
-<!--DEV ONLY-->
-<p><%= link_to 'Add new product', new_product_path %></p>

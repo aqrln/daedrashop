@@ -13,7 +13,8 @@
             <div class="col-sm-2 product">
                 <a href="<%= url_for @products[element - 1] %>">
                     <img src="/products/1.png">
-                    <p><%= @products[element - 1].title %></p>
+                    <p class="catalog-product-name"><%= @products[element - 1].title %></p>
+                    <p class="catalog-price"><%= @products[element - 1].price %> грн.</p>
                 </a>
             </div>
             <% i += 1 %>
@@ -41,7 +42,8 @@
         <div class="col-sm-2 product">
             <a href="<%= url_for product %>">
                 <img src="/products/1.png">
-                <p><%= product.title %></p>
+                <p class="catalog-product-name"><%= product.title %></p>
+                <p class="catalog-price"><%= product.price %> грн.</p>
             </a>
         </div>
         <% i += 1 %>
@@ -63,9 +65,10 @@
                 <div class="row">
             <% end %>
             <div class="col-sm-2 product">
-                <a href="<% url_for @products[element - 1] %>">
+                <a href="<%= url_for @products[element - 1] %>">
                     <img src="/products/1.png">
-                    <p><%= @products[element - 1].title %></p>
+                    <p class="catalog-product-name"><%= @products[element - 1].title %></p>
+                    <p class="catalog-price"><%= @products[element - 1].price %></p>
                 </a>
             </div>
             <% i += 1 %>

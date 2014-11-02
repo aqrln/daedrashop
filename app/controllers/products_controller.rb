@@ -77,6 +77,7 @@ class ProductsController < ApplicationController
     graph_update(:in_cart, @product)
 
     @cart_graph = Graph.find_all_by_first_product(@product.id)
+
     #@cart_graph.sort! {|cart_with| cart_with}
 
     @bought = check_list_type(:bought, @product)

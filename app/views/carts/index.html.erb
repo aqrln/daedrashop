@@ -29,8 +29,8 @@
     <div class="row">
         <div class="col-sm-4"></div>
         <div class="col-sm-4">
-            <p><a href="<%= url_for clear_path %>" class="btn btn-danger cart-btn">Очистить корзину</a></p>
-            <p><a href="<%= url_for checkouts_path %>" class="btn btn-success cart-btn">Оплатить</a></p>
+            <p><a href="<%= url_for clear_path %>" class="btn btn-danger cart-btn"><i class="glyphicon glyphicon-remove"></i> Очистить корзину</a></p>
+            <p><a href="<%= url_for checkouts_path %>" class="btn btn-success cart-btn"><i class="glyphicon glyphicon-ok"></i> Оплатить</a></p>
         </div>
     </div>
 
@@ -40,4 +40,4 @@
 
 <% end %>
 
-<p class="text-center"><%= link_to 'Назад', products_path %></p>
+<p class="text-center"><a href="<%= url_for products_path %>">&larr; Вернуться к каталогу</a></p>

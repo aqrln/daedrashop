@@ -39,3 +39,11 @@ nav.affix {
   top: 0;
   transition: 0.3s;
 }
+
+footer {
+  background-color: #dc9;
+  text-align: right;
+  color: #a96;
+  padding: 3% 0;
+  margin-top: 3%;
+}

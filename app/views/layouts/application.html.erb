@@ -8,6 +8,10 @@
 </head>
 <body>
 
+<% if not session[:total] %>
+<% session[:total] = 0 %>
+<% end %>
+
 <nav class="navbar navbar-inverse navbar-fixed-top navbar-custom" role="navigation" data-spy="affix" data-offset-top="10">
   <div class="container-fluid">
     <div class="navbar-header">

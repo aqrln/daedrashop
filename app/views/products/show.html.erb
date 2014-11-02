@@ -6,24 +6,14 @@
 <br>
 
 <h4>Buy with</h4>
-    <% if @cart_graph != nil %>
-        <% @cart_graph.each do |element| %>
-            <p><%= element.first_product %> <%= element.second_product %> <%= element.buy_with %></p>
-        <% end %>
-    <% end %>
 <br>
 
 <h4>View with</h4>
-    <% if @cart_graph != nil %>
-        <% @cart_graph.each do |element| %>
-            <p><%= element.first_product %> <%= element.second_product %> <%= element.view_with %></p>
-        <% end %>
-    <% end %>
 <br>
 
 <h4>Add to cart with</h4>
-    <% if @cart_graph != nil %>
-        <% @cart_graph.each do |element| %>
+    <% if @in_cart != nil %>
+        <% @in_cart.each do |element| %>
             <p><%= element.first_product %> <%= element.second_product %> <%= element.cart_with %></p>
         <% end %>
     <% end %>

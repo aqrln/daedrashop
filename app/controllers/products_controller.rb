@@ -76,15 +76,37 @@ class ProductsController < ApplicationController
     #graph_update(:view_session, @product)
     graph_update(:in_cart, @product)
 
-    @cart_graph = Graph.find_all_by_first_product(@product.id)
+    cart_graph = Graph.find_all_by_first_product(@product.id)
+    cart_graph.sort_by! { |element| element.cart_with }
+    cart_graph.reverse!
 
-    #@cart_graph.sort! {|cart_with| cart_with}
+    in_cart_ten = Array.new(10)
+    (0..9).each do |i|
+      in_cart_ten[i] = (cart_graph[i])
+    end
+
+    @in_cart = Array.new(4)
+    @newR = 0
+    @prevR = Random.rand(9)
+    4.times do |i|
+      random_stuff()
+      @in_cart[i] = in_cart_ten[@newR]
+    end
 
     @bought = check_list_type(:bought, @product)
     @remove = check_list_type(:in_cart, @product)
 
     @product.views += 1
     @product.update_attribute(:views, @product.views)
+  end
+
+  def random_stuff
+    @newR = Random.rand(9)
+    if @newR == @prevR
+      random_stuff()
+    else
+      @prevR = @newR
+    end
   end
 
   def view_session(product)

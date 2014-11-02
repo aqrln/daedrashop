@@ -40,9 +40,10 @@
       <div id="cart-float">
         <h4><i class="glyphicon glyphicon-shopping-cart"></i> Корзина</h4>
         <% if session[:in_cart] %>
-          <p>Количество товаров: 0</p>
-          <p>Сумма: 0 грн.</p>
+          <p>Количество товаров: <%= session[:in_cart].length %></p>
+          <p>Сумма: <%= number_to_currency session[:total], unit: "грн.", format: "%n %u", delimeter: " " %></p>
           <p><a href="/carts">Перейти к корзине</a></p>
+          <p><a href="/checkouts">Оплатить</a></p>
         <% else %>
           <p>Ваша корзина пуста!</p>
           <p><a href="/products">Перейти к каталогу продукции</a></p>

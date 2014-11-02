@@ -1,25 +1,25 @@
-<h2>Cart</h2>
+<h2>Корзина</h2>
 
 <% if session[:in_cart] != nil %>
 
     <% @products.each do |product| %>
         <% if @amount[product.id - 1] > 0 %>
-            <p>Name: <%= product.title %></p>
-            <p>Price: <%= product.price %>$</p>
+            <p>Название: <%= product.title %></p>
+            <p>Цена: <%= product.price %>$</p>
             <% @sum += product.price %>
             <br>
         <% end %>
     <% end %>
 
-    <p>Total: <%= @sum %>$</p>
+    <p>Итого: <%= @sum %>$</p>
     <% session[:total] = @sum %>
 
     <br>
-    <p><%= link_to 'Clear cart', clear_path %></p>
-    <p><%= link_to 'Checkout', checkouts_path %></p>
+    <p><%= link_to 'Очистить корзину', clear_path %></p>
+    <p><%= link_to 'Оплатить', checkouts_path %></p>
 <% else %>
-    <p>Your cart is empty!</p>
+    <p>В вашей корзине нет товаров!</p>
     <br>
 <% end %>
 
-<p><%= link_to 'Back', products_path %></p>
+<p><%= link_to 'Назад', products_path %></p>

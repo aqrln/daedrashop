@@ -216,3 +216,21 @@ h3 {
   color: #f85;
   border-bottom-color: #f85;
 }
+
+.btn-danger {
+  background-color: #a30;
+  border-color: #920;
+}
+
+.btn-success {
+  background-color: #430;
+  border-color: #320;
+}
+
+.btn-danger:hover {
+  background-color: #b41;
+}
+
+.btn-success:hover {
+  background-color: #541;
+}

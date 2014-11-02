@@ -2,24 +2,38 @@
 
 <% if session[:in_cart] != nil %>
 
-    <% @products.each do |product| %>
-        <% if @amount[product.id - 1] > 0 %>
-            <p>Название: <%= product.title %></p>
-            <p>Цена: <%= product.price %>$</p>
+    <% cart_products = @products.select { |product| @amount[product.id - 1] > 0} %>
+
+    <% i = 0 %>
+    <% cart_products.each do |product| %>
             <% @sum += product.price %>
-            <br>
+        <% if i % 6 == 0 %>
+            <div class="row">
+        <% end %>
+        <div class="col-sm-2 product">
+            <a href="<%= url_for product %>">
+                <img src="/products/<%= product.id %>.png">
+                <p class="catalog-product-name"><%= product.title %><br>
+                <span class="catalog-price">(<%= number_to_currency product.price, unit: "грн.", format: "%n %u", delimeter: " " %>)</span></p>
+            </a>
+        </div>
+        <% i += 1 %>
+        <% if i % 6 == 0 or i == cart_products.length %>
+            </div>
         <% end %>
     <% end %>
 
-    <p>Итого: <%= @sum %>$</p>
     <% session[:total] = @sum %>
+    <h4>Итого: <%= number_to_currency session[:total], unit: "грн.", format: "%n %u", delimeter: " " %></h4>
 
     <br>
     <p><%= link_to 'Очистить корзину', clear_path %></p>
     <p><%= link_to 'Оплатить', checkouts_path %></p>
+
 <% else %>
+
     <p>В вашей корзине нет товаров!</p>
-    <br>
+
 <% end %>
 
 <p><%= link_to 'Назад', products_path %></p>

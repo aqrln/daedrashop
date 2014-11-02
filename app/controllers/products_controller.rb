@@ -5,8 +5,8 @@ class ProductsController < ApplicationController
 
     #session.clear
 
-    @buy_list = SetupArray(:bought, @products)
-    @cart = SetupArray(:in_cart, @products)
+    @buy_list = setup_array(:bought, @products)
+    @cart = setup_array(:in_cart, @products)
 
     if session[:bought] != nil and session[:in_cart] != nil
       @view = Array.new(@products.length - @cart.length) { 0 }
@@ -38,7 +38,7 @@ class ProductsController < ApplicationController
 
   end
 
-  def SetupArray(params, products)
+  def setup_array(params, products)
     if session[params] != nil
       array = Array.new(session[params].length) { 0 }
       session[params].each do |element|
@@ -58,14 +58,14 @@ class ProductsController < ApplicationController
     @product = Product.new(params[:product])
 
     if @product.save
-      GraphCreate()
+      graph_create()
       redirect_to @product
     else
       render new_product_path
     end
   end
 
-  def GraphCreate
+  def graph_create
     Product.all.each do |product_first|
       Product.all.each do |product_second|
         if product_first.id != product_second.id
@@ -78,33 +78,32 @@ class ProductsController < ApplicationController
     end
   end
 
-  def UpdateCartGraph(first, second)
+  def update_cart_graph(first, second)
+    myGraph = get_graph(first, second)
+    myGraph.update_attribute(:cart_with, myGraph.cart_with + 1)
+  end
+
+  def get_graph(first, second)
     graph = Graph.where(:first_product => first, :second_product => second)
     if not graph.exists?
-      GraphCreate()
-      CartWithUpdate(Product.find(first))
+      graph_create()
     else
       myGraph = Graph.find(graph)
-      myGraph.update_attribute(:cart_with, myGraph.cart_with + 1)
+      return myGraph
     end
   end
 
-  def UpdateViewGraph(first, second)
-    graph = Graph.where(:first_product => first, :second_product => second)
-    if not graph.exists?
-      GraphCreate()
-      ViewWithUpdate(Product.find(first))
-    else
-      myGraph = Graph.find(graph)
-      myGraph.update_attribute(:view_with, myGraph.view_with + 1)
-    end
+  def update_view_graph(first, second)
+    myGraph = get_graph(first, second)
+    myGraph.update_attribute(:view_with, myGraph.view_with + 1)
   end
 
   def show
     @product = Product.find(params[:id])
 
-    ViewWithUpdate(@product)
-    CartWithUpdate(@product)
+    #view_session(@product)
+    #graph_update(:view_session, @product)
+    #graph_update(:in_cart, @product)
 
     @bought = CheckListType(:bought, @product)
     @remove = CheckListType(:in_cart, @product)
@@ -113,7 +112,7 @@ class ProductsController < ApplicationController
     @product.update_attribute(:views, @product.views)
   end
 
-  def ViewSession(product)
+  def view_session(product)
     update_view = true
     if not session[:view_session].nil?
       session[:view_session].each do |element|
@@ -126,24 +125,22 @@ class ProductsController < ApplicationController
     (session[:view_session] ||= []) << product.id if update_view
   end
 
-  def ViewWithUpdate(product)
-    ViewSession(product)
-    if session[:view_session] != nil and session[:view_session].length > 1
-      session[:view_session].each do |element|
-        if element != product.id
-          UpdateViewGraph(product.id, element)
-          UpdateViewGraph(element, product.id)
-        end
-      end
-    end
-  end
-
-  def CartWithUpdate(product)
-    if session[:in_cart] != nil and session[:in_cart].length > 1
-      session[:in_cart].each do |element|
-        if element != product.id
-          UpdateCartGraph(product.id, element)
-          UpdateCartGraph(element, product.id)
+  def graph_update(param, product)
+    if session[param] != nil and session[param].length > 1
+      session[param].each do |element|
+        if element == product.id
+          session[param].each do |first|
+            session[param].each do |second|
+              if first != second
+                if param == :in_cart
+                  update_cart_graph(first, second)
+                elsif param == :view_session
+                  update_view_graph(first, second)
+                end
+              end
+            end
+          end
+          break
         end
       end
     end

@@ -3,18 +3,19 @@
 <div class="container-fluid">
 <% if @buy_list != nil %>
     <h4>Уже куплено:</h4>
-    <% @i = 0 %>
-    <% @buy_list.each do |element| %>
+    <% i = 0 %>
+    <% tmp_buy_list = @buy_list.select { |element| element.to_i > 0 } %>
+    <% tmp_buy_list.each do |element| %>
         <% if element.to_i > 0 %>
-            <% if @i % 6 == 0 %>
+            <% if i % 6 == 0 %>
                 <div class="row">
             <% end %>
             <div class="col-sm-2 product">
                 <img src="/products/1.png">
                 <p><%= link_to @products[element - 1].title, @products[element - 1] %></p>
             </div>
-            <% @i += 1 %>
-            <% if @i % 6 == 0 or @i == @buy_list.length %>
+            <% i += 1 %>
+            <% if i % 6 == 0 or i == tmp_buy_list.length %>
                 </div>
             <% end %>
         <% end %>
@@ -25,25 +26,23 @@
 <div class="container-fluid">
 <% if @view != nil %>
     <h4>Доступные товары:</h4>
-    <% @i = 0 %>
-    <% @view_list = @products.sort_by do |element| %>
+    <% i = 0 %>
+    <% @view_list = @products.select { |product| product.id == @view[product.id - 1] }.sort_by do |element| %>
         <% element[:views] %>
     <% end %>
     <% @view_list.reverse! %>
 
     <% @view_list.each do |product| %>
-        <% if product.id == @view[product.id - 1] %>
-            <% if @i % 6 == 0 %>
-                <div class="row">
-            <% end %>
-            <div class="col-sm-2 product">
-                <img src="/products/1.png">
-                <p><%= link_to product.title, product %></p>
+        <% if i % 6 == 0 %>
+            <div class="row">
+        <% end %>
+        <div class="col-sm-2 product">
+            <img src="/products/1.png">
+            <p><%= link_to product.title, product %></p>
+        </div>
+        <% i += 1 %>
+        <% if i % 6 == 0 or i == @view_list.length %>
             </div>
-            <% @i += 1 %>
-            <% if @i % 6 == 0 or @i == @view_list.length %>
-                </div>
-            <% end %>
         <% end %>
     <% end %>
 <% end %>
@@ -52,18 +51,19 @@
 <div class="container-fluid">
 <% if @cart != nil %>
     <h4>Добавлено в корзину:</h4>
-    <% @i = 0 %>
-    <% @cart.each do |element| %>
+    <% i = 0 %>
+    <% tmp_cart = @cart.select { |element| element.to_i > 0 } %>
+    <% tmp_cart.each do |element| %>
         <% if element.to_i > 0 %>
-            <% if @i % 6 == 0 %>
+            <% if i % 6 == 0 %>
                 <div class="row">
             <% end %>
             <div class="col-sm-2 product">
                 <img src="/products/1.png">
                 <p><%= link_to @products[element - 1].title, @products[element - 1] %></p>
             </div>
-            <% @i += 1 %>
-            <% if @i % 6 == 0 or @i == @cart.length %>
+            <% i += 1 %>
+            <% if i % 6 == 0 or i == tmp_cart.length %>
                 </div>
             <% end %>
         <% end %>

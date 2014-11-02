@@ -11,8 +11,10 @@
                 <div class="row">
             <% end %>
             <div class="col-sm-2 product">
-                <img src="/products/1.png">
-                <p><%= link_to @products[element - 1].title, @products[element - 1] %></p>
+                <a href="<%= url_for @products[element - 1] %>">
+                    <img src="/products/1.png">
+                    <p><%= @products[element - 1].title %></p>
+                </a>
             </div>
             <% i += 1 %>
             <% if i % 6 == 0 or i == tmp_buy_list.length %>
@@ -37,8 +39,10 @@
             <div class="row">
         <% end %>
         <div class="col-sm-2 product">
-            <img src="/products/1.png">
-            <p><%= link_to product.title, product %></p>
+            <a href="<%= url_for product %>">
+                <img src="/products/1.png">
+                <p><%= product.title %></p>
+            </a>
         </div>
         <% i += 1 %>
         <% if i % 6 == 0 or i == @view_list.length %>
@@ -59,8 +63,10 @@
                 <div class="row">
             <% end %>
             <div class="col-sm-2 product">
-                <img src="/products/1.png">
-                <p><%= link_to @products[element - 1].title, @products[element - 1] %></p>
+                <a href="<% url_for @products[element - 1] %>">
+                    <img src="/products/1.png">
+                    <p><%= @products[element - 1].title %></p>
+                </a>
             </div>
             <% i += 1 %>
             <% if i % 6 == 0 or i == tmp_cart.length %>

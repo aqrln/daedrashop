@@ -3,7 +3,7 @@ class CheckoutsController < ApplicationController
   require 'graph_manager'
 
   def index
-    @username = 'Username'
+    @username = 'Имя пользователя'
   end
 
   def create

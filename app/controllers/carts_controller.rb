@@ -21,6 +21,7 @@ class CartsController < ApplicationController
 
   def show
     session[:in_cart] = nil
+    session[:total] = 0
     redirect_to products_path
   end
 

@@ -131,14 +131,14 @@ class ProductsController < ApplicationController
   end
 
   def clear
-    #TODO: Remove from cart
-    session[:in_cart].delete_at(0)
+    session[:in_cart].delete_if {|element| element == session[:in_cart][]}
     redirect_to products_path
   end
 
   def edit
     @product = Product.find(params[:id])
     (session[:in_cart] ||= []) << @product.id
+    session[:total] = @product.price + session[:total]
     redirect_to products_path
   end
 

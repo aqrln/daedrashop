@@ -1,10 +1,25 @@
 <h2>Оплата</h2>
 
-<p>Итого: <%= session[:total] %>$</p>
+<% if session[:in_cart] %>
 
 <%= form_for @username do |form| %>
-    <p><%= form.label @username %></p>
-    <%= form.text_field @username %>
-    <br>
-    <p><%= form.submit 'Олпатить'%></p>
+  <h3>Сумма: <%= number_to_currency session[:total], unit: "грн.", format: "%n %u", delimiter: " " %></h3>
+  <div class="row">
+    <div class="col-sm-3"></div>
+    <div class="col-sm-6">
+      <input type="text" placeholder="Ваше имя">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-3"></div>
+    <div class="col-sm-6">
+      <button class="submit-button">Оплатить</button>
+    </div>
+  </div>
+<% end %>
+
+<% else %>
+
+<h3>Ваша корзина пуста. Выберите товары <%= link_to 'здесь', products_path %>.</h3>
+
 <% end %>

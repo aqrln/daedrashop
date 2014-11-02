@@ -1,11 +1,9 @@
-# coding: utf-8
-
 class CheckoutsController < ApplicationController
 
   require 'graph_manager'
 
   def index
-    @username = "Имя пользователя"
+    @username = "username"
   end
 
   def create

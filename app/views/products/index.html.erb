@@ -1,7 +1,5 @@
 <h2>Каталог продукции</h2>
 
-<p>Sum: <%= session[:total] %>$</p>
-
 <div class="container-fluid">
 <% if @buy_list != nil %>
     <h4>Уже куплено:</h4>
@@ -65,7 +63,7 @@
                 <div class="row">
             <% end %>
             <div class="col-sm-2 product">
-                <a href="<% url_for @products[element - 1] %>">
+                <a href="<%= url_for @products[element - 1] %>">
                     <img src="/products/1.png">
                     <p><%= @products[element - 1].title %></p>
                 </a>

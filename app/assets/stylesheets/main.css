@@ -28,8 +28,15 @@ h1 {
   border-radius: 0;
   border: none;
   background-color: #333;
+  top: -300px;
+  transition: 2s;
 }
 
 .navbar-custom .navbar-brand {
   font-family: "Ruritania";
+}
+
+nav.affix {
+  top: 0;
+  transition: 0.3s;
 }

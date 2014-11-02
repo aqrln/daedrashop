@@ -1,5 +1,7 @@
 class ProductsController < ApplicationController
 
+  require 'graph_manager'
+
   def index
     @products = Product.all
 
@@ -58,44 +60,12 @@ class ProductsController < ApplicationController
     @product = Product.new(params[:product])
 
     if @product.save
-      graph_create()
+      @graphManager = GraphManager.new
+      @graphManager.graph_create()
       redirect_to @product
     else
       render new_product_path
     end
-  end
-
-  def graph_create
-    Product.all.each do |product_first|
-      Product.all.each do |product_second|
-        if product_first.id != product_second.id
-          if not Graph.where(:first_product => product_first.id, :second_product => product_second.id).exists?
-            @graph = Graph.create(:first_product => product_first.id, :second_product => product_second.id,
-                                  :buy_with => 0, :view_with => 0, :cart_with => 0)
-          end
-        end
-      end
-    end
-  end
-
-  def update_cart_graph(first, second)
-    myGraph = get_graph(first, second)
-    myGraph.update_attribute(:cart_with, myGraph.cart_with + 1)
-  end
-
-  def get_graph(first, second)
-    graph = Graph.where(:first_product => first, :second_product => second)
-    if not graph.exists?
-      graph_create()
-    else
-      myGraph = Graph.find(graph)
-      return myGraph
-    end
-  end
-
-  def update_view_graph(first, second)
-    myGraph = get_graph(first, second)
-    myGraph.update_attribute(:view_with, myGraph.view_with + 1)
   end
 
   def show
@@ -105,8 +75,8 @@ class ProductsController < ApplicationController
     #graph_update(:view_session, @product)
     #graph_update(:in_cart, @product)
 
-    @bought = CheckListType(:bought, @product)
-    @remove = CheckListType(:in_cart, @product)
+    @bought = check_list_type(:bought, @product)
+    @remove = check_list_type(:in_cart, @product)
 
     @product.views += 1
     @product.update_attribute(:views, @product.views)
@@ -126,6 +96,7 @@ class ProductsController < ApplicationController
   end
 
   def graph_update(param, product)
+    @graphManager = GraphManager.new
     if session[param] != nil and session[param].length > 1
       session[param].each do |element|
         if element == product.id
@@ -133,9 +104,9 @@ class ProductsController < ApplicationController
             session[param].each do |second|
               if first != second
                 if param == :in_cart
-                  update_cart_graph(first, second)
+                  @graphManager.update_cart_graph(first, second)
                 elsif param == :view_session
-                  update_view_graph(first, second)
+                  @graphManager.update_view_graph(first, second)
                 end
               end
             end
@@ -146,7 +117,7 @@ class ProductsController < ApplicationController
     end
   end
 
-  def CheckListType(params, product)
+  def check_list_type(params, product)
     my_bool = false
     if session[params] != nil
       session[params].each do |element|

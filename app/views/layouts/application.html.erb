@@ -41,7 +41,7 @@
       <%= yield %>
     </div>
     <div class="col-sm-3">
-      <div id="cart-float">
+      <div class="side-float cart-float">
         <h4><i class="glyphicon glyphicon-shopping-cart"></i> Корзина</h4>
         <% if session[:in_cart] %>
           <p>Количество товаров: <%= session[:in_cart].length %></p>
@@ -53,9 +53,14 @@
           <p><a href="/products">Перейти к каталогу продукции</a></p>
         <% end %>
       </div>
+      <div class="side-float">
+        <h5><i class="glyphicon glyphicon-th"></i> <a href="/products">Каталог продукции</a></h5>
+      </div>
     </div>
   </div>
 </div>
+
+<div class="push"></div>
 
 <footer>
   <div class="container">

@@ -19,8 +19,7 @@ h1 {
 #cart-float {
   margin-top: 20%;
   border-radius: 5px;
-  border: 1px solid;
-  border-color: #dc9 #feb #feb #dc9;
+  background: #dc9;
   padding: 5px;
 }
 

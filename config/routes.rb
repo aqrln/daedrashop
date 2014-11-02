@@ -1,7 +1,7 @@
 Shop::Application.routes.draw do
 
   resources :products
-  match 'products/clear' => 'products#clear', via: :get, as: :clear
+  get '/remove', :to => 'products#remove'
 
   resources :carts
   match 'carts/clear' => 'carts#clear', via: :get, as: :clear

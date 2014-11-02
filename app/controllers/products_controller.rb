@@ -70,10 +70,14 @@ class ProductsController < ApplicationController
 
   def show
     @product = Product.find(params[:id])
+    session[:current_id] = @product.id
 
     #view_session(@product)
     #graph_update(:view_session, @product)
-    #graph_update(:in_cart, @product)
+    graph_update(:in_cart, @product)
+
+    @cart_graph = Graph.find_all_by_first_product(@product.id)
+    #@cart_graph.sort! {|cart_with| cart_with}
 
     @bought = check_list_type(:bought, @product)
     @remove = check_list_type(:in_cart, @product)
@@ -130,14 +134,24 @@ class ProductsController < ApplicationController
     return my_bool
   end
 
-  def clear
-    session[:in_cart].delete_if {|element| element == session[:in_cart][]}
+  def remove
+    array = Array.new
+    session[:in_cart].each do |element|
+      if element != session[:current_id]
+        array.push(element)
+      end
+    end
+    session[:in_cart] = nil
+    session[:in_cart] = array
     redirect_to products_path
   end
 
   def edit
     @product = Product.find(params[:id])
     (session[:in_cart] ||= []) << @product.id
+    if session[:total] == nil
+      session[:total] = 0
+    end
     session[:total] = @product.price + session[:total]
     redirect_to products_path
   end

@@ -1,40 +1,78 @@
-<h2>Product info</h2>
+<h2><%= @product.title %></h2>
 
-<p>Name: <%= @product.title %></p>
-<p>Price: <%= @product.price %>$</p>
-<p>Views: <%= @product.views %></p>
-<br>
-
-<h4>Buy with</h4>
-    <% if @buy_with != nil %>
-        <% @buy_with.each do |element| %>
-            <p><%= link_to element.title, element %></p>
+<div class="row">
+    <div class="col-sm-4 text-center">
+        <img class="big-image" src="/products/<%= @product.id %>.png">
+    </div>
+    <div class="col-sm-8">
+        <div>
+            <p class="product-price pull-left">Цена: <%= number_to_currency @product.price, unit: "грн.", format: "%n %u", delimiter: " " %></p>
+            <p class="pull-right">
+                <% if @remove %>
+                    <i class="glyphicon glyphicon-ok"></i> Уже в корзине <a href="<%= url_for remove_path %>" class="delete-link">(<i class="glyphicon glyphicon-remove"></i> Удалить)</a>
+                <% else %>
+                    <a href="<%= url_for edit_product_path %>"><i class="glyphicon glyphicon-plus"></i> Добавить в корзину</a>
+                <% end %>
+            </p>
+        </div>
+        <div class="clearfix"></div>
+        <p class="description">
+            <%= @product.description %>
+        </p>
+        <p>Просмотров: <%= @product.views %></p>
+        <br>
+        
+        <h4>Смотрите также:</h4>
+        <% if @buy_with %>
+            <div class="row">
+                <% @buy_with.each do |element| %>
+                    <div class="col-sm-3 product">
+                        <a href="<%= url_for element %>">
+                            <img src="/products/<%= element.id %>.png">
+                            <p class="catalog-product-name"><%= element.title %><br>
+                            <span class="catalog-price">(<%= number_to_currency element.price, unit: "грн.", format: "%n %u", delimiter: " " %>)</span></p>
+                        </a>
+                    </div>
+                <% end %>
+            </div>
         <% end %>
-    <% end %>
-<br>
-
-<h4>View with</h4>
-    <% if @view_with != nil %>
-        <% @view_with.each do |element| %>
-            <p><%= link_to element.title, element %></p>
+        <% if @view_with %>
+            <div class="row">
+                <% @view_with.each do |element| %>
+                    <div class="col-sm-3 product">
+                        <a href="<%= url_for element %>">
+                            <img src="/products/<%= element.id %>.png">
+                            <p class="catalog-product-name"><%= element.title %><br>
+                            <span class="catalog-price">(<%= number_to_currency element.price, unit: "грн.", format: "%n %u", delimiter: " " %>)</span></p>
+                        </a>
+                    </div>
+                <% end %>
+            </div>
         <% end %>
-    <% end %>
-<br>
-
-<h4>Add to cart with</h4>
-    <% if @in_cart != nil %>
-        <% @in_cart.each do |element| %>
-            <p><%= link_to element.title, element %></p>
+        <% if @in_cart %>
+            <div class="row">
+                <% @in_cart.each do |element| %>
+                    <div class="col-sm-3 product">
+                        <a href="<%= url_for element %>">
+                            <img src="/products/<%= element.id %>.png">
+                            <p class="catalog-product-name"><%= element.title %><br>
+                            <span class="catalog-price">(<%= number_to_currency element.price, unit: "грн.", format: "%n %u", delimiter: " " %>)</span></p>
+                        </a>
+                    </div>
+                <% end %>
+            </div>
         <% end %>
-    <% end %>
-<br>
 
-<% if @bought == false %>
-    <% if @remove %>
-        <p><%= link_to 'Remove', remove_path %></p>
-    <% else %>
-        <p><%= link_to 'Add to cart', edit_product_path %></p>
-    <% end %>
-<% end %>
+        <br>
 
-<p><%= link_to 'Back', products_path %></p>
+        <p>
+        <% if @remove %>
+            <a href="<%= url_for remove_path %>" class="btn btn-danger"><i class="glyphicon glyphicon-remove"></i> Убрать из корзины</a>
+        <% else %>
+            <a href="<%= url_for edit_product_path %>" class="btn btn-success"><i class="glyphicon glyphicon-plus"></i> Добавить в корзину</a>
+        <% end %>
+        </p>
+
+        <p><a href="<%= url_for products_path %>">&larr; Вернуться к каталогу</a></p>
+    </div>
+</div>

@@ -190,3 +190,29 @@ h3 {
 .cart-btn {
   width: 100%;
 }
+
+.big-image {
+  width: 100%;
+  height: 100%;
+  max-width: 600px;
+  max-height: 900px;
+}
+
+.description {
+  font-size: 1.2em;
+}
+
+.product-price {
+  font-size: 1.4em;
+  font-weight: bolder;
+}
+
+.delete-link {
+  color: #e74;
+  border-bottom-color: #e74;
+}
+
+.delete-link:hover {
+  color: #f85;
+  border-bottom-color: #f85;
+}

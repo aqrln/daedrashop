@@ -8,6 +8,10 @@
   src: url("/fonts/PT_Sans-Web-Regular.ttf");
 }
 
+html, body {
+  height: 100%;
+}
+
 body {
   background-color: #eda;
   border-top: 10px solid #333;
@@ -46,12 +50,25 @@ nav.affix, nav.affix-bottom {
   transition: 0.3s;
 }
 
+.page-wrapper {
+  min-height: 100%;
+  margin-bottom: -7%;
+}
+
+.page-wrapper:after {
+  content: "";
+  display: block;
+}
+
+footer, .page-wrapper:after {
+  height: 7%;
+}
+
 footer {
   background-color: #dc9;
   text-align: right;
   color: #a96;
-  padding: 3% 0;
-  margin-top: 3%;
+  padding: 3% 0 4% 0;
 }
 
 h2 {

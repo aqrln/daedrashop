@@ -1,6 +1,8 @@
 <h1>List of products</h1>
 <br>
 
+<p>Sum: <%= session[:total] %>$</p>
+
 <h4>Bought</h4>
 <% if @buy_list != nil %>
     <% @buy_list.each do |element| %>

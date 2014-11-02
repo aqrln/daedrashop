@@ -139,6 +139,7 @@ class ProductsController < ApplicationController
   def edit
     @product = Product.find(params[:id])
     (session[:in_cart] ||= []) << @product.id
+    session[:total] = @product.price + session[:total]
     redirect_to products_path
   end
 

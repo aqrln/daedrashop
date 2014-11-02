@@ -185,3 +185,7 @@ h3 {
 .push {
   margin-bottom: 10%;
 }
+
+.cart-btn {
+  width: 100%;
+}

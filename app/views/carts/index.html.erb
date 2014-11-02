@@ -26,14 +26,18 @@
     <% session[:total] = @sum %>
     <h4>Итого: <%= number_to_currency session[:total], unit: "грн.", format: "%n %u", delimiter: " " %></h4>
 
-    <br>
-    <p><%= link_to 'Очистить корзину', clear_path %></p>
-    <p><%= link_to 'Оплатить', checkouts_path %></p>
+    <div class="row">
+        <div class="col-sm-4"></div>
+        <div class="col-sm-4">
+            <p><a href="<%= url_for clear_path %>" class="btn btn-danger cart-btn">Очистить корзину</a></p>
+            <p><a href="<%= url_for checkouts_path %>" class="btn btn-success cart-btn">Оплатить</a></p>
+        </div>
+    </div>
 
 <% else %>
 
-    <p>В вашей корзине нет товаров!</p>
+    <h3>Ваша корзина пуста. Выберите товары <%= link_to 'здесь', products_path %>.</h3>
 
 <% end %>
 
-<p><%= link_to 'Назад', products_path %></p>
+<p class="text-center"><%= link_to 'Назад', products_path %></p>

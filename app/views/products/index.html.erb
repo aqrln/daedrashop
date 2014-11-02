@@ -14,12 +14,11 @@
                 <p><%= link_to @products[element - 1].title, @products[element - 1] %></p>
             </div>
             <% @i += 1 %>
-            <% if @i % 6 == 0 %>
+            <% if @i % 6 == 0 or @i == @buy_list.length %>
                 </div>
             <% end %>
         <% end %>
     <% end %>
-    </div>
 <% end %>
 </div>
 
@@ -42,12 +41,11 @@
                 <p><%= link_to product.title, product %></p>
             </div>
             <% @i += 1 %>
-            <% if @i % 6 == 0 %>
+            <% if @i % 6 == 0 or @i == @view_list.length %>
                 </div>
             <% end %>
         <% end %>
     <% end %>
-    </div>
 <% end %>
 </div>
 
@@ -65,11 +63,10 @@
                 <p><%= link_to @products[element - 1].title, @products[element - 1] %></p>
             </div>
             <% @i += 1 %>
-            <% if @i % 6 == 0 %>
+            <% if @i % 6 == 0 or @i == @cart.length %>
                 </div>
             <% end %>
         <% end %>
     <% end %>
-    </div>
 <% end %>
 </div>

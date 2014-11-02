@@ -94,3 +94,12 @@ nav a, nav a:hover {
   background-color: #dc9;
   transition: 0.3s ease;
 }
+
+.catalog-product-name {
+  text-align: center;
+}
+
+.catalog-price {
+  font-style: italic;
+  color: #541;
+}

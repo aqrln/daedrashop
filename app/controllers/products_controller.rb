@@ -205,6 +205,9 @@ class ProductsController < ApplicationController
     end
     session[:in_cart] = nil
     session[:in_cart] = array
+
+    session[:total] -= Product.find(session[:current_id]).price
+
     redirect_to products_path
   end
 
